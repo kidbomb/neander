@@ -1,0 +1,23 @@
+TODO
+	* constantes
+	* suporte a mais de um procedimento
+		* implementar pilhas
+			* stack pointer
+			* base pointer?
+	* biblioteca para o Ahmes (stdout)
+		* deve suportar procedimentos
+		* import console
+			* carrega biblioteca do console em área de memória 	
+			* registra funções
+			* suporte a alto e baixo nivel
+	* acesso a arrays
+		* resolver endereçamentos
+	* parser tac2arq
+		* deve se adaptar para cad arquitetura
+		* o código tac é sempre único
+		* neander: gerar suporte a pilhas , numeros negativos, soma, divisao
+		* verifica vars, tmps e consts e gera DBs
+	* otimização dos TMPs
+	* criar testes
+
+	
