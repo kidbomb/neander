@@ -11,7 +11,7 @@
   /* Definicoes regulares */
 delim    [ \t\n]
 br       {delim}+ 
-letra    [A-Za-z]
+letra    [A-Za-z_]
 alga     [0-9]
 idf      {letra}+({letra}|{alga})*
 numero   {alga}+(\.{alga}+)?(E[+\-]?{alga}+)?
@@ -23,6 +23,7 @@ integer [0-9]+
 
 {br}    { /*  Nada para fazer - sem retorno */ }
 if	{ return(IF_T);			}
+"GOTO"	{ return(GOTOCMD);		}
 {idf}   {
 			yylval.string.name = (char*)malloc(sizeof(char)*yyleng);
 			strcpy(yylval.string.name, yytext);
@@ -35,9 +36,15 @@ if	{ return(IF_T);			}
 		}
 
 ":="	{ return(ASSIGNMENT);		}	
-"GOTO"	{ return(GOTOCMD);		}
-"<"	{ return( '< ');		}
+"<"	{ return( '<');		}
 ":"	{ return( ':' );		}
+"+"	{ 
+	yylval.character = '+';		
+	return(PLUSOP);	}
+"-"	{ return(MINUSOP);	}
+"*"	{ return(MULTOP);	}
+"/"	{ return(DIVOP);	}
+"&"	{ return(ANDOP);	}
 
 %%
  /* Secao dos  Procedimentos auxiliares  */

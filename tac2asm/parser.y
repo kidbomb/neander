@@ -9,10 +9,15 @@
 
 #include "symbol-table.h"
 #include "spaghetti-stack.h"
+#define ARQ_NEANDER	1
+#define ARQ_RAMSES	2
+#define ARQ_AHMES	3
 
 scope_entry * scope;        /* Escopo atual */
 int i;                      /* Variavel de iteracao*/
 FILE* output;            /* O arquivo de saída gerado pelo compilador */
+int chosen_architecture;
+
 
 void table_insert(char* nome) ;
 void compiler_fatal_error(char * error);
@@ -21,6 +26,7 @@ void scope_leave();
 void scope_init();
 
 %}
+%error-verbose
 /***************************************************************************************/
 /*                              Tipos possíveis                                        */
 /***************************************************************************************/
@@ -40,6 +46,11 @@ void scope_init();
 %token IF_T
 %token ASSIGNMENT
 %token GOTOCMD
+%token<character> PLUSOP
+%token<character> MINUSOP
+%token<character> MULTOP
+%token<character> DIVOP
+%token<character> ANDOP
 %token<inteiro>	INTEIRO
 %token<string> 	IDF
 %type<character> OP
@@ -76,24 +87,45 @@ DECLARACAO_ASSIGNMENT: IDF ASSIGNMENT IDF OP IDF {
         if (!entrada) {
 		table_insert($1.name);
 	}
-	fprintf(output, "LDA %s", $5.name);
+	fprintf(output, "LDA %s\n", $5.name);
 	if($4 == '+'){
-		fprintf(output, "ADD %s", $3.name);
+		fprintf(output, "ADD %s\n", $3.name);
 	} else {
-		compiler_fatal_error("Esse compilador só suporta operações de +");
+		compiler_fatal_error("Esse compilador só suporta operações de +\n");
 	}
-	fprintf(output, "STA %s", $1.name);
-	
-};
-
-OP : '+' | '-' | '*' | '/' | '&' ;
-
-DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
+	fprintf(output, "STA %s\n", $1.name);	
+}
+| IDF ASSIGNMENT IDF {
+	fprintf(output, "LDA %s\n", $3.name);
+	fprintf(output, "STA %s\n", $1.name);
+}
+| IDF ASSIGNMENT INTEIRO {
+	/**/
+	char constname [15];
+	sprintf(constname, "CONST_%04d", $3);
+	entry_t* entrada = scope_lookup(scope, constname) ;
+        if (!entrada) {
+		table_insert(constname);
+	}
+	fprintf(output, "LDA %s\n", constname);
+	fprintf(output, "STA %s\n", $1.name);
 
 }
 ;
-DECLARACAO_LABEL: IDF ':' {
 
+OP : PLUSOP | MINUSOP | MULTOP | DIVOP | ANDOP ;
+
+DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
+	if($4 !=0){
+		compiler_fatal_error("Operação < com número diferente de zero não suportada!\n");
+	} else{
+		fprintf(output, "LDA %s\n", $2.name);
+		fprintf(output, "JN %s\n", $6.name);
+	}
+} 
+;
+DECLARACAO_LABEL: IDF ':' {
+	fprintf(output, "%s :\n", $1.name);
 }
 ;
 
@@ -156,5 +188,5 @@ int main(int argc, char* argv[]) {
 }
 
 yyerror(char* s) {
-  fprintf(stderr, "%s: %s", progname, s);
+  fprintf(stderr, "%s: %s\n", progname, s);
 }

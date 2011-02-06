@@ -11,7 +11,7 @@
   /* Definicoes regulares */
 delim    [ \t\n]
 br       {delim}+ 
-letra    [A-Za-z]
+letra    [A-Za-z_]
 alga     [0-9]
 idf      {letra}+({letra}|{alga})*
 numero   {alga}+(\.{alga}+)?(E[+\-]?{alga}+)?

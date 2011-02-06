@@ -19,5 +19,7 @@ TODO
 		* verifica vars, tmps e consts e gera DBs
 	* otimização dos TMPs
 	* criar testes
+	* maneira de setar o ORG/registrador (algumas variáveis são obrigadas a estarem em determinados end da memória
+	* otimizar uso de constantes
 
 	

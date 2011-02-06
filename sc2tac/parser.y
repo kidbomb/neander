@@ -28,7 +28,7 @@ typedef struct expr {
 	} expressao;
 
 void table_insert(char* nome, int tipo, int size, void* extra) ;
-void opr(char op, expressao a, expressao b, expressao c);
+void opr(char op, expressao* a, expressao* b, expressao* c);
 char* gera_tmp() ;
 void compiler_fatal_error(char * error);
 void scope_enter();
@@ -150,8 +150,6 @@ DECLARACAO_PROCEDIMENTO:
 			printf("Erro: este compilador aceita apenas uma funcao main");
 			return 0;
 		}
-
-		fprintf(output, "HLT");
 	}
 	;
 
@@ -228,19 +226,19 @@ IF_END: FECHA_CHAVES {
 	}
 	;
 EXPRESSAO: EXPRESSAO '+' EXPRESSAO {
-	 opr('+', $$, $1, $3);
+	 opr('+', &$$, &$1, &$3);
     }
     | EXPRESSAO '-' EXPRESSAO {
-	 opr('-', $$, $1, $3);
+	 opr('-', &$$, &$1, &$3);
     }
     | EXPRESSAO '*' EXPRESSAO {
-	 opr('*', $$, $1, $3);
+	 opr('*', &$$, &$1, &$3);
     }
     | EXPRESSAO '/' EXPRESSAO {
-	 opr('/', $$, $1, $3);
+	 opr('/', &$$, &$1, &$3);
 	}
     | EXPRESSAO '&' EXPRESSAO {		
-	opr('&', $$, $1, $3);
+	//opr('&', $$, $1, $3);
 	
     }
     | '!' EXPRESSAO {
@@ -313,11 +311,11 @@ char* gera_tmp() {
    return( res );
 }
 
-void opr(char op, expressao a, expressao b, expressao c){
-	if(b.tipo == c.tipo){
-            a.local = gera_tmp();
-            a.tipo = b.tipo;
-            fprintf(output, "%s \t:= %s %c %s\n", a.local, b.local, op, c.local);
+void opr(char op, expressao *a, expressao *b, expressao *c){
+	if(b->tipo == c->tipo){
+            a->local = gera_tmp();
+            a->tipo = b->tipo;
+            fprintf(output, "%s \t:= %s %c %s\n", a->local, b->local, op, c->local);
         } else{
             printf("Erro: elementos com tipos diferentes numa expressão ( %c )\n", op);
             exit(-1);
