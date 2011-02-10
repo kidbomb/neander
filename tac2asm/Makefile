@@ -1,5 +1,5 @@
-compilador: lex.yy.c y.tab.c symbol-table.o spaghetti-stack.o
-	gcc -o tac2asm y.tab.c symbol-table.o spaghetti-stack.o -ly -lfl
+compilador: lex.yy.c y.tab.c symbol-table.o
+	gcc -o tac2asm y.tab.c symbol-table.o -ly -lfl
 
 lex.yy.c: lexer.l
 	flex lexer.l
@@ -9,9 +9,6 @@ y.tab.c: parser.y
 
 symbol-table.o: symbol-table.c symbol-table.h
 	$(CC) $(OPT) -c symbol-table.c
-
-spaghetti-stack.o: spaghetti-stack.c spaghetti-stack.h
-	$(CC) $(OPT) -c spaghetti-stack.c
 
 clean:
 	rm -f tac2asm lex.yy.c  y.tab.c  y.tab.h *.o

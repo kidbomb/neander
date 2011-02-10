@@ -1,0 +1,5 @@
+*.o
+sc2tac/lex.yy.c
+sc2tac/sc2tac
+sc2tac/y.tab.c
+sc2tac/y.tab.h

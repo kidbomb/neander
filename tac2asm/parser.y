@@ -8,12 +8,11 @@
 #include <math.h>
 
 #include "symbol-table.h"
-#include "spaghetti-stack.h"
 #define ARQ_NEANDER	1
 #define ARQ_RAMSES	2
 #define ARQ_AHMES	3
 
-scope_entry * scope;        /* Escopo atual */
+symbol_t ts;
 int i;                      /* Variavel de iteracao*/
 FILE* output;            /* O arquivo de saída gerado pelo compilador */
 int chosen_architecture;
@@ -21,9 +20,6 @@ int chosen_architecture;
 
 void table_insert(char* nome) ;
 void compiler_fatal_error(char * error);
-void scope_enter();
-void scope_leave();
-void scope_init();
 
 %}
 %error-verbose
@@ -61,7 +57,7 @@ void scope_init();
 /********************************************************************************/
 /* O programa é definido pro declarações, tanto de tipos como de procedimentos */
 PROGRAMA: {
-    scope_init();
+	table_init(&ts);
 }
 	DECLARACOES /* Deve ser verificado se o procedimento 'main existe */
 	;
@@ -83,7 +79,7 @@ DECLARACAO:
 
 DECLARACAO_ASSIGNMENT: IDF ASSIGNMENT IDF OP IDF {
 	/*inserir na tabela se não estiver la*/
-	entry_t* entrada = scope_lookup(scope, $1.name) ;
+	entry_t* entrada = lookup(ts, $1.name) ;
         if (!entrada) {
 		table_insert($1.name);
 	}
@@ -103,7 +99,7 @@ DECLARACAO_ASSIGNMENT: IDF ASSIGNMENT IDF OP IDF {
 	/**/
 	char constname [15];
 	sprintf(constname, "CONST_%04d", $3);
-	entry_t* entrada = scope_lookup(scope, constname) ;
+	entry_t* entrada = lookup(ts, constname) ;
         if (!entrada) {
 		table_insert(constname);
 	}
@@ -146,7 +142,7 @@ void table_insert(char* nome) {
      entry_t* entrada = (entry_t*)malloc(sizeof(entry_t));
      entrada->name = (char*)malloc(sizeof(char)*strlen(nome));
      strcpy(entrada->name, nome);
-     insert(&(scope->table), entrada );
+     insert(&ts, entrada );
      
 }
 
@@ -154,15 +150,6 @@ void compiler_fatal_error(char * message){
 	printf("%s", message);
 	exit(-1);
 }
-
-void scope_init(){
-	/* aloca memória para o ponteiro */
-	scope = (scope_entry*) malloc(sizeof(scope_entry));
-	/* Como é a raiz, não tem pai */
-	scope->parent = NULL;
-	table_init(&(scope->table));
-}
-
 
 /********************************************************/
 /* 		           MAIN				*/

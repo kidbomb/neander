@@ -238,7 +238,7 @@ EXPRESSAO: EXPRESSAO '+' EXPRESSAO {
 	 opr('/', &$$, &$1, &$3);
 	}
     | EXPRESSAO '&' EXPRESSAO {		
-	//opr('&', $$, $1, $3);
+	 opr('&', &$$, &$1, &$3);
 	
     }
     | '!' EXPRESSAO {
