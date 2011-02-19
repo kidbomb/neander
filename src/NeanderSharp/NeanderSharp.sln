@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanderSharp.UI", "NeanderSharp.UI\NeanderSharp.UI.csproj", "{C39A0D9F-DC2B-4500-80D8-AA079F482807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsNeander", "TestsNeander\TestsNeander.csproj", "{ABCF1F7E-1DE3-4563-A792-3C30CAB4D2FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0C69FC18-7713-4059-AFCE-3C2AFABDCEF0}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		NeanderSharp.vsmdi = NeanderSharp.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanderSharp.Model", "NeanderSharp.Model\NeanderSharp.Model.csproj", "{129CBDE2-162F-4918-8D2F-B15E3F9AF9FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daedalus", "Daedalus\Daedalus.csproj", "{37277825-2EFB-4008-A342-CB6A0BF3C99A}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = NeanderSharp.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C39A0D9F-DC2B-4500-80D8-AA079F482807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C39A0D9F-DC2B-4500-80D8-AA079F482807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C39A0D9F-DC2B-4500-80D8-AA079F482807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C39A0D9F-DC2B-4500-80D8-AA079F482807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCF1F7E-1DE3-4563-A792-3C30CAB4D2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCF1F7E-1DE3-4563-A792-3C30CAB4D2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCF1F7E-1DE3-4563-A792-3C30CAB4D2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCF1F7E-1DE3-4563-A792-3C30CAB4D2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{129CBDE2-162F-4918-8D2F-B15E3F9AF9FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{129CBDE2-162F-4918-8D2F-B15E3F9AF9FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{129CBDE2-162F-4918-8D2F-B15E3F9AF9FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{129CBDE2-162F-4918-8D2F-B15E3F9AF9FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37277825-2EFB-4008-A342-CB6A0BF3C99A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37277825-2EFB-4008-A342-CB6A0BF3C99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37277825-2EFB-4008-A342-CB6A0BF3C99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37277825-2EFB-4008-A342-CB6A0BF3C99A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
