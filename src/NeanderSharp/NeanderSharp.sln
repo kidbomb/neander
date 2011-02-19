@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanderSharp.UI", "NeanderSharp.UI\NeanderSharp.UI.csproj", "{C39A0D9F-DC2B-4500-80D8-AA079F482807}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsNeander", "TestsNeander\TestsNeander.csproj", "{ABCF1F7E-1DE3-4563-A792-3C30CAB4D2FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanderSharp.Tests", "NeanderSharp.Tests\NeanderSharp.Tests.csproj", "{ABCF1F7E-1DE3-4563-A792-3C30CAB4D2FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0C69FC18-7713-4059-AFCE-3C2AFABDCEF0}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,4 +1,13 @@
 *.o
+*.suo
+*.dll
+*.resources
+*.obj
+*.FileListAbsolute
+*.exe
+*.pdb
+*.Cache
+*.FileListAbsolute.txt
 sc2tac/lex.yy.c
 sc2tac/sc2tac
 sc2tac/y.tab.c
