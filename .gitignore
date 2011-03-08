@@ -6,8 +6,12 @@
 *.FileListAbsolute
 *.exe
 *.pdb
+*.pidb
+*.mdb
 *.Cache
 *.FileListAbsolute.txt
+*.pyc
+*.userprefs
 sc2tac/lex.yy.c
 sc2tac/sc2tac
 sc2tac/y.tab.c
