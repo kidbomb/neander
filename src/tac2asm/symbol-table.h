@@ -5,9 +5,7 @@
 
 typedef struct {
    char* name;  /* Name of the variable */
-   int type;    /* Type of the entry: either basic type, either proc.. */
-   int size;    /* sizeof(type) */
-   int desloc;
+   int value;
    void* extra; /* Information depending on the Type */
 } entry_t ;
 

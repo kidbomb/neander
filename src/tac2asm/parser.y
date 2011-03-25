@@ -16,9 +16,10 @@ symbol_t ts;
 int i;                      /* Variavel de iteracao*/
 FILE* output;            /* O arquivo de saída gerado pelo compilador */
 int chosen_architecture;
+int pc;
 
 
-void table_insert(char* nome) ;
+void table_insert(char* nome, int value) ;
 void compiler_fatal_error(char * error);
 
 %}
@@ -28,7 +29,6 @@ void compiler_fatal_error(char * error);
 /***************************************************************************************/
 %union{
 	int inteiro;		/* Tipo 'inteiro' */
-	int byte;
 	char character;
 	struct s1 {
 		char* name ;
@@ -41,14 +41,14 @@ void compiler_fatal_error(char * error);
 
 %token IF_T
 %token ASSIGNMENT
+%token DOUBLE_EQUAL
 %token GOTOCMD
 %token<character> PLUSOP
-%token<character> MINUSOP
-%token<character> MULTOP
-%token<character> DIVOP
+%token<character> OROP
 %token<character> ANDOP
 %token<inteiro>	INTEIRO
 %token<string> 	IDF
+%type<string> 	VARIABLE
 %type<character> OP
 
 %%
@@ -58,8 +58,22 @@ void compiler_fatal_error(char * error);
 /* O programa é definido pro declarações, tanto de tipos como de procedimentos */
 PROGRAMA: {
 	table_init(&ts);
+	pc = 0;
 }
-	DECLARACOES /* Deve ser verificado se o procedimento 'main existe */
+	DECLARACOES {
+		struct list_t * elem ;
+		fprintf(output, "ORG %d\n", pc);
+		for (i=0 ; i<SYMBOL_TABLE_SIZE ; i++) {
+      			if (ts[i] != NULL) {
+				elem = ts[i] ;
+				while (elem != NULL) {
+           				fprintf(output, "%s:\tDB %d\n",elem->symb->name,  elem->symb->value);
+
+	   				elem = elem->next;
+				}
+      			}
+   		}
+	}/* Deve ser verificado se o procedimento 'main existe */
 	;
 /* declarações são um conjunto de declaração */
 DECLARACOES:
@@ -71,45 +85,65 @@ DECLARACAO:
 	DECLARACAO_ASSIGNMENT
 	| DECLARACAO_IF
 	| DECLARACAO_LABEL
+	| DECLARACAO_GOTO
 	;
 /********************************************************************************/
 /*                     Declaracoes do assignment			        */
 /********************************************************************************/
 /* Uma declaração de tipo pode ser de tipo ou de tabela */
 
-DECLARACAO_ASSIGNMENT: IDF ASSIGNMENT IDF OP IDF {
-	/*inserir na tabela se não estiver la*/
-	entry_t* entrada = lookup(ts, $1.name) ;
-        if (!entrada) {
-		table_insert($1.name);
-	}
+DECLARACAO_ASSIGNMENT: VARIABLE ASSIGNMENT VARIABLE OP VARIABLE {
+
 	fprintf(output, "LDA %s\n", $5.name);
 	if($4 == '+'){
 		fprintf(output, "ADD %s\n", $3.name);
+		pc+=2;
+	} else if($4 == '&'){
+		fprintf(output, "AND %s\n", $3.name);
+		pc+=2;
+	} else if($4 == '|'){
+		fprintf(output, "OR %s\n", $3.name);
+		pc+=2;
 	} else {
-		compiler_fatal_error("Esse compilador só suporta operações de +\n");
+		compiler_fatal_error("Esse compilador só suporta operações de + \n");
 	}
 	fprintf(output, "STA %s\n", $1.name);	
+	pc+=4;
 }
-| IDF ASSIGNMENT IDF {
+| VARIABLE ASSIGNMENT '!' VARIABLE {
+	fprintf(output, "LDA %s\n", $4.name);
+	fprintf(output, "NOT\n");
+	fprintf(output, "STA %s\n", $1.name);	
+	pc+=5;
+}
+| VARIABLE ASSIGNMENT VARIABLE {
 	fprintf(output, "LDA %s\n", $3.name);
 	fprintf(output, "STA %s\n", $1.name);
+	pc+=4;
 }
-| IDF ASSIGNMENT INTEIRO {
+| VARIABLE ASSIGNMENT INTEIRO {
 	/**/
 	char constname [15];
 	sprintf(constname, "CONST_%04d", $3);
 	entry_t* entrada = lookup(ts, constname) ;
         if (!entrada) {
-		table_insert(constname);
+		table_insert(constname, $3);
 	}
 	fprintf(output, "LDA %s\n", constname);
 	fprintf(output, "STA %s\n", $1.name);
-
+	pc+=4;
 }
 ;
 
-OP : PLUSOP | MINUSOP | MULTOP | DIVOP | ANDOP ;
+OP : PLUSOP |  OROP | ANDOP ;
+
+VARIABLE: IDF {
+	/*inserir na tabela se não estiver la*/
+	entry_t* entrada = lookup(ts, $1.name) ;
+        if (!entrada) {
+		table_insert($1.name, 0);
+	}
+};
 
 DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
 	if($4 !=0){
@@ -117,6 +151,16 @@ DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
 	} else{
 		fprintf(output, "LDA %s\n", $2.name);
 		fprintf(output, "JN %s\n", $6.name);
+		pc+=4;
+	}
+} 
+| IF_T IDF DOUBLE_EQUAL INTEIRO GOTOCMD IDF {
+	if($4 !=0){
+		compiler_fatal_error("Operação < com número diferente de zero não suportada!\n");
+	} else{
+		fprintf(output, "LDA %s\n", $2.name);
+		fprintf(output, "JZ %s\n", $6.name);
+		pc+=4;
 	}
 } 
 ;
@@ -124,7 +168,10 @@ DECLARACAO_LABEL: IDF ':' {
 	fprintf(output, "%s :\n", $1.name);
 }
 ;
-
+DECLARACAO_GOTO: GOTOCMD IDF {
+	fprintf(output, "JMP %s :\n", $2.name);
+}
+;
 %%
 /********************************************************************************/
 /*    Procedimentos anexos em c:					        */
@@ -138,9 +185,10 @@ char* progname;
 /*							*/
 /* insere uma variável na tabela			*/
 /********************************************************/
-void table_insert(char* nome) {
+void table_insert(char* nome, int value) {
      entry_t* entrada = (entry_t*)malloc(sizeof(entry_t));
      entrada->name = (char*)malloc(sizeof(char)*strlen(nome));
+     entrada->value = value;
      strcpy(entrada->name, nome);
      insert(&ts, entrada );
      

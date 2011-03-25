@@ -12,7 +12,12 @@
 *.FileListAbsolute.txt
 *.pyc
 *.userprefs
-sc2tac/lex.yy.c
-sc2tac/sc2tac
-sc2tac/y.tab.c
-sc2tac/y.tab.h
+lex.yy.c
+y.tab.c
+y.tab.h
+asm2mem/
+src/tac2asm/tac2asm
+src/sc2tac/sc2tac
+tac/
+docs/
+mem/

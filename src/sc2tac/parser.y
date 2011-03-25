@@ -11,11 +11,9 @@
 #include "spaghetti-stack.h"
 
 /* Definir constantes para tipos e tamantos dos tipos*/
-#define		_TIPO_INTEIRO_		104
-#define		_TIPO_BYTE_		105
+#define		_TIPO_BYTE_		104
 #define		_TIPO_PROCEDIMENTO_	106
-#define		_SIZE_INTEIRO_		1
-#define		_SIZE_BYTE_			1
+#define		_SIZE_BYTE_		1
 
 static int n_tmp = 0 ;      /* Para contabilizar os tmpXX */
 scope_entry * scope;        /* Escopo atual */
@@ -43,7 +41,6 @@ void moreline();
 /*                              Tipos possíveis                                        */
 /***************************************************************************************/
 %union{
-	int inteiro;		/* Tipo 'inteiro' */
 	int byte;
 	struct s1 {
 		int tipo;
@@ -67,7 +64,6 @@ void moreline();
 /* Associação de um tipo de atributo aus tokens e aos não terminais */
 /********************************************************************/
 
-%token INTEIRO_T
 %token BYTE_T
 %token VOID_T
 %token ELSE_T
@@ -77,7 +73,6 @@ void moreline();
 %token DE
 %token GREATER_OR_EQUAL
 %token RETORNA
-%token	<inteiro>	INTEIRO
 %token <byte>		BYTE
 %token <string> 	IDF
 %type	<tipo>		TIPO
@@ -115,20 +110,15 @@ DECLARACAO_TIPO:
 	        /* Definicao de variavel: insere na tabela de simbolos */
 		table_insert($2.name, $1.tipo, $1.size, NULL);
 	}
-	| TIPO IDF '=' INTEIRO {
+	| TIPO IDF '=' BYTE {
 		/*Definição com valor inicial*/
 		table_insert($2.name, $1.tipo, $1.size, NULL);
 	}
 	;
 
-/* Um tipo pode ser inteiro ou byte */
+/* Um tipo pode ser byte */
 TIPO:
-	INTEIRO_T {
-		/* Definir tamanho e tipo  */
-		$$.tipo = _TIPO_INTEIRO_;
-		$$.size = _SIZE_INTEIRO_;		
-	}
-	| BYTE_T {
+	BYTE_T {
 		/* Definir tamanho e tipo  */
 		$$.tipo = _TIPO_BYTE_;
 		$$.size = _SIZE_BYTE_;	
@@ -177,14 +167,9 @@ INSTRUCOES: INSTRUCAO {
 	    | INSTRUCOES INSTRUCAO {
 		}
 INSTRUCAO:
-	L '=' INTEIRO ';' {
+	L '=' BYTE ';' {
 		/* para evitar expressões simples em 2 linhas*/
-		if($1.tipo == _TIPO_INTEIRO_){
-                     fprintf(output, "%s \t:= %d\n", $1.local, $3); 
-		} else {
-			printf("Erro: tipos diferentes na atribuicao!\n");
-			exit(-1);
-		}
+		fprintf(output, "%s \t:= %d\n", $1.local, $3); 
 		
 	} 
 	| L '=' EXPRESSAO  ';' {
@@ -200,25 +185,34 @@ INSTRUCAO:
 	| IF_BEGIN INSTRUCOES IF_END {
 		fprintf(output, "IF_%s :\n", $1.label);
 	}
-	| WHILE_T '(' IDF DOUBLE_EQUAL INTEIRO ')' ESCOPO {
+	| WHILE_T '(' IDF DOUBLE_EQUAL BYTE ')' ESCOPO {
 	}
 	;
 
-IF_BEGIN: IF_T '(' IDF DOUBLE_EQUAL INTEIRO ')' ABRE_CHAVES {
+IF_BEGIN: IF_T '(' IDF DOUBLE_EQUAL BYTE ')' ABRE_CHAVES {
+		/*gera um label pra goto*/
 		if($5 == 0){
-			char * iflabel = gera_tmp();
+		    char * iflabel_in = gera_tmp();
+		    char * iflabel_out = gera_tmp();
+		    strcpy($$.label, iflabel_out);
+		    fprintf(output, "if %s == 0 GOTO IF_%s\n", $3.name, iflabel_in);
+		    fprintf(output, "GOTO IF_%s\n",  iflabel_out);
+		    fprintf(output, "GOTO IF_%s\n", iflabel_in);
+		} else {
+		    printf("Erro: compilador nao aceita esse tipo de comparacao\n");
+		    exit(-1);
 		}
 	}
-	| IF_T '(' IDF GREATER_OR_EQUAL INTEIRO  ')' ABRE_CHAVES {
-        /*gera um label pra goto*/
-        if($5 == 0){
-            char * iflabel = gera_tmp();
-			strcpy($$.label, iflabel);
-            fprintf(output, "if %s < 0 GOTO IF_%s\n", $3.name, iflabel);
-        } else {
-            printf("Erro: compilador nao aceita esse tipo de comparacao\n");
-            exit(-1);
-        }
+	| IF_T '(' IDF GREATER_OR_EQUAL BYTE  ')' ABRE_CHAVES {
+		/*gera um label pra goto*/
+		if($5 == 0){
+		    char * iflabel = gera_tmp();				
+		    strcpy($$.label, iflabel);
+		    fprintf(output, "if %s < 0 GOTO IF_%s\n", $3.name, iflabel);
+		} else {
+		    printf("Erro: compilador nao aceita esse tipo de comparacao\n");
+		    exit(-1);
+		}
 
     }
 	;
@@ -228,14 +222,8 @@ IF_END: FECHA_CHAVES {
 EXPRESSAO: EXPRESSAO '+' EXPRESSAO {
 	 opr('+', &$$, &$1, &$3);
     }
-    | EXPRESSAO '-' EXPRESSAO {
-	 opr('-', &$$, &$1, &$3);
-    }
-    | EXPRESSAO '*' EXPRESSAO {
-	 opr('*', &$$, &$1, &$3);
-    }
-    | EXPRESSAO '/' EXPRESSAO {
-	 opr('/', &$$, &$1, &$3);
+    | EXPRESSAO '|' EXPRESSAO {
+	 opr('|', &$$, &$1, &$3);
 	}
     | EXPRESSAO '&' EXPRESSAO {		
 	 opr('&', &$$, &$1, &$3);
@@ -244,7 +232,7 @@ EXPRESSAO: EXPRESSAO '+' EXPRESSAO {
     | '!' EXPRESSAO {
 	    $$.local = gera_tmp();
             $$.tipo = $2.tipo;
-            fprintf(output, "%s \t:= NOT %s\n", $$.local, $2.local);
+            fprintf(output, "%s \t:= ! %s\n", $$.local, $2.local);
     }
     | '(' EXPRESSAO ')' {
 	 $$.local = $2.local ;
@@ -254,9 +242,9 @@ EXPRESSAO: EXPRESSAO '+' EXPRESSAO {
 	$$.tipo = $1.tipo;
             $$.local = $1.local ;
         }
-    | INTEIRO {
+    | BYTE {
 	$$.local = gera_tmp();
-	$$.tipo = _TIPO_INTEIRO_;
+	$$.tipo = _TIPO_BYTE_;
         fprintf(output, "%s \t:= %d\n", $$.local, $1);
 	}
     ;

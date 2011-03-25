@@ -37,14 +37,21 @@ if	{ return(IF_T);			}
 
 ":="	{ return(ASSIGNMENT);		}	
 "<"	{ return( '<');		}
+"=="	{ return( DOUBLE_EQUAL);		}
 ":"	{ return( ':' );		}
 "+"	{ 
 	yylval.character = '+';		
-	return(PLUSOP);	}
-"-"	{ return(MINUSOP);	}
-"*"	{ return(MULTOP);	}
-"/"	{ return(DIVOP);	}
-"&"	{ return(ANDOP);	}
+	return(PLUSOP);	
+}
+"&"	{
+	yylval.character = '&';		
+	return(ANDOP);	
+}
+"|"	{
+	yylval.character = '|';		
+	return(OROP);	
+}
+"!"	{ return( '!' ) ;		}
 
 %%
  /* Secao dos  Procedimentos auxiliares  */
