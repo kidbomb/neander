@@ -9,15 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Neander.h"
 
-@interface Neander4iPhoneAppDelegate : NSObject <UIApplicationDelegate,NeanderDelegate> {
+@interface Neander4iPhoneAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-	Neander *neander;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-- (IBAction) openFileClicked:(id)sender;  
-- (IBAction) runButtonClicked:(id)sender;  
-- (void) stepped;
 
 @end
 

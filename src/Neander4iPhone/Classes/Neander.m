@@ -33,8 +33,11 @@
 	return self;
 }
 
--
-(void)reset{
+-(void)setDelegate:(id)obj{
+	delegate = obj;
+}
+
+-(void)reset{
 	pc = 0;
 	ac = 0;
 }

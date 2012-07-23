@@ -74,23 +74,6 @@
      */
 }
 
--(IBAction) openFileClicked:(id)sender{
-	neander = [[Neander new] initWithFile:@"programaNeander.mem"];
-	for (unsigned int i=0; i < 256; i++) {
-		NSLog(@"Red address %d [%d]", i, [neander getMemory:i]);
-	}
-
-}
-
--(IBAction) runButtonClicked:(id)sender{
-	[neander run];
-	NSLog(@"Done with PC=[%d]", [neander pc]);
-	
-}
-
--(void)stepped{
-
-}
 
 - (void)dealloc {
     [window release];

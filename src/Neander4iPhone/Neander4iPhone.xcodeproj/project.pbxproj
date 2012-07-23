@@ -23,6 +23,8 @@
 		3F586D9115B8EEDD00165CF3 /* MemReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F586D9015B8EEDD00165CF3 /* MemReader.m */; };
 		3F586D9215B8EEDD00165CF3 /* MemReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F586D9015B8EEDD00165CF3 /* MemReader.m */; };
 		3F5FB8BD130ADBEC0037D55C /* Neander.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F5FB8BC130ADBEC0037D55C /* Neander.m */; };
+		3F89768615BCEF780029AA17 /* NeanderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F89768415BCEF780029AA17 /* NeanderView.m */; };
+		3F89768715BCEF780029AA17 /* NeanderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F89768415BCEF780029AA17 /* NeanderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		3F5FB8BB130ADBEC0037D55C /* Neander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Neander.h; sourceTree = "<group>"; };
 		3F5FB8BC130ADBEC0037D55C /* Neander.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Neander.m; sourceTree = "<group>"; };
 		3F5FB8D8130AE3B80037D55C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		3F89768415BCEF780029AA17 /* NeanderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NeanderView.m; sourceTree = "<group>"; };
+		3F89768515BCEF780029AA17 /* NeanderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NeanderView.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Neander4iPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Neander4iPhone-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +81,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3F89768515BCEF780029AA17 /* NeanderView.h */,
+				3F89768415BCEF780029AA17 /* NeanderView.m */,
 				3F14228815BBEFA5004C66F1 /* NeanderViewController.m */,
 				3F14228715BBEF9B004C66F1 /* NeanderViewController.h */,
 				1D3623240D0F684500981E51 /* Neander4iPhoneAppDelegate.h */,
@@ -262,6 +268,7 @@
 				3F5FB8BD130ADBEC0037D55C /* Neander.m in Sources */,
 				3F586D9115B8EEDD00165CF3 /* MemReader.m in Sources */,
 				3F14228915BBEFA5004C66F1 /* NeanderViewController.m in Sources */,
+				3F89768715BCEF780029AA17 /* NeanderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +280,7 @@
 				3F473E91130AF8A0004D7224 /* SimpleTests.m in Sources */,
 				3F586D9215B8EEDD00165CF3 /* MemReader.m in Sources */,
 				3F14228A15BBEFA5004C66F1 /* NeanderViewController.m in Sources */,
+				3F89768615BCEF780029AA17 /* NeanderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,18 +2,18 @@
 {
 	1D3623240D0F684500981E51 /* Neander4iPhoneAppDelegate.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {635, 442}}";
-			sepNavSelRange = "{162, 0}";
-			sepNavVisRange = "{0, 498}";
-			sepNavWindowFrame = "{{713, 497}, {712, 505}}";
+			sepNavIntBoundsRect = "{{0, 0}, {653, 377}}";
+			sepNavSelRange = "{294, 56}";
+			sepNavVisRange = "{0, 358}";
+			sepNavWindowFrame = "{{568, 497}, {712, 505}}";
 		};
 	};
 	1D3623250D0F684500981E51 /* Neander4iPhoneAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1965, 1196}}";
-			sepNavSelRange = "{536, 0}";
-			sepNavVisRange = "{0, 578}";
-			sepNavWindowFrame = "{{817, -62}, {472, 497}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1965, 1001}}";
+			sepNavSelRange = "{480, 0}";
+			sepNavVisRange = "{0, 1082}";
+			sepNavWindowFrame = "{{456, 287}, {653, 553}}";
 		};
 	};
 	1D6058900D05DD3D006BFB54 /* Neander4iPhone */ = {
@@ -112,26 +112,24 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 364629616;
-			PBXWorkspaceStateSaveDate = 364629616;
+			PBXPerProjectTemplateStateSaveDate = 364704812;
+			PBXWorkspaceStateSaveDate = 364704812;
 		};
 		perUserProjectItems = {
 			3F1420FC15BBCEC1004C66F1 /* PBXTextBookmark */ = 3F1420FC15BBCEC1004C66F1 /* PBXTextBookmark */;
 			3F14212E15BBD733004C66F1 /* PBXTextBookmark */ = 3F14212E15BBD733004C66F1 /* PBXTextBookmark */;
 			3F14216515BBDB91004C66F1 /* PBXTextBookmark */ = 3F14216515BBDB91004C66F1 /* PBXTextBookmark */;
 			3F14222115BBEABD004C66F1 /* PBXTextBookmark */ = 3F14222115BBEABD004C66F1 /* PBXTextBookmark */;
-			3F14222215BBEABD004C66F1 /* PBXTextBookmark */ = 3F14222215BBEABD004C66F1 /* PBXTextBookmark */;
-			3F14224615BBECE4004C66F1 /* PBXBookmark */ = 3F14224615BBECE4004C66F1 /* PBXBookmark */;
-			3F14225A15BBEE4F004C66F1 /* PBXBookmark */ = 3F14225A15BBEE4F004C66F1 /* PBXBookmark */;
 			3F14226515BBEEE9004C66F1 /* PBXTextBookmark */ = 3F14226515BBEEE9004C66F1 /* PBXTextBookmark */;
-			3F14227F15BBEF50004C66F1 /* PBXTextBookmark */ = 3F14227F15BBEF50004C66F1 /* PBXTextBookmark */;
-			3F1422A415BBF633004C66F1 /* PBXTextBookmark */ = 3F1422A415BBF633004C66F1 /* PBXTextBookmark */;
-			3F1422A515BBF633004C66F1 /* PBXTextBookmark */ = 3F1422A515BBF633004C66F1 /* PBXTextBookmark */;
-			3F1422A615BBF633004C66F1 /* PBXTextBookmark */ = 3F1422A615BBF633004C66F1 /* PBXTextBookmark */;
-			3F586CD015B8E12000165CF3 /* PBXTextBookmark */ = 3F586CD015B8E12000165CF3 /* PBXTextBookmark */;
 			3F586D6315B8ECBD00165CF3 /* PlistBookmark */ = 3F586D6315B8ECBD00165CF3 /* PlistBookmark */;
 			3F586DA115B8F5F700165CF3 /* PBXTextBookmark */ = 3F586DA115B8F5F700165CF3 /* PBXTextBookmark */;
-			3F586F1A15B911BE00165CF3 /* PBXTextBookmark */ = 3F586F1A15B911BE00165CF3 /* PBXTextBookmark */;
+			3F89767615BCEF110029AA17 /* PBXTextBookmark */ = 3F89767615BCEF110029AA17 /* PBXTextBookmark */;
+			3F89767715BCEF110029AA17 /* PBXTextBookmark */ = 3F89767715BCEF110029AA17 /* PBXTextBookmark */;
+			3F89768C15BCEF8C0029AA17 /* PBXTextBookmark */ = 3F89768C15BCEF8C0029AA17 /* PBXTextBookmark */;
+			3F89768D15BCEF8C0029AA17 /* PBXTextBookmark */ = 3F89768D15BCEF8C0029AA17 /* PBXTextBookmark */;
+			3FE5976D15BCF593000CCDCC /* PBXTextBookmark */ = 3FE5976D15BCF593000CCDCC /* PBXTextBookmark */;
+			3FE5976E15BCF593000CCDCC /* XCBuildMessageTextBookmark */ = 3FE5976E15BCF593000CCDCC /* XCBuildMessageTextBookmark */;
+			3FE5978E15BCF8DE000CCDCC /* PBXTextBookmark */ = 3FE5978E15BCF8DE000CCDCC /* PBXTextBookmark */;
 		};
 		sourceControlManager = 3F906ACD130A346B00480147 /* Source Control */;
 		userBuildSettings = {
@@ -188,28 +186,10 @@
 		fRef = 3F5FB8BC130ADBEC0037D55C /* Neander.m */;
 		name = "Neander.m: 125";
 		rLen = 0;
-		rLoc = 2188;
+		rLoc = 2235;
 		rType = 0;
 		vrLen = 683;
 		vrLoc = 1627;
-	};
-	3F14222215BBEABD004C66F1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 1D3623250D0F684500981E51 /* Neander4iPhoneAppDelegate.m */;
-		name = "Neander4iPhoneAppDelegate.m: 93";
-		rLen = 0;
-		rLoc = 2811;
-		rType = 0;
-		vrLen = 720;
-		vrLoc = 2093;
-	};
-	3F14224615BBECE4004C66F1 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 3F5FB8BB130ADBEC0037D55C /* Neander.h */;
-	};
-	3F14225A15BBEE4F004C66F1 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 1D3623250D0F684500981E51 /* Neander4iPhoneAppDelegate.m */;
 	};
 	3F14226515BBEEE9004C66F1 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -221,66 +201,25 @@
 		vrLen = 358;
 		vrLoc = 0;
 	};
-	3F14227F15BBEF50004C66F1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 1D3623240D0F684500981E51 /* Neander4iPhoneAppDelegate.h */;
-		name = "Neander4iPhoneAppDelegate.h: 17";
-		rLen = 0;
-		rLoc = 385;
-		rType = 0;
-		vrLen = 498;
-		vrLoc = 0;
+	3F14228715BBEF9B004C66F1 /* NeanderViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {594, 425}}";
+			sepNavSelRange = "{204, 0}";
+			sepNavVisRange = "{0, 412}";
+			sepNavWindowFrame = "{{604, 210}, {610, 498}}";
+		};
 	};
-	3F1422A415BBF633004C66F1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 1D3623240D0F684500981E51 /* Neander4iPhoneAppDelegate.h */;
-		name = "Neander4iPhoneAppDelegate.h: 9";
-		rLen = 0;
-		rLoc = 162;
-		rType = 0;
-		vrLen = 498;
-		vrLoc = 0;
-	};
-	3F1422A515BBF633004C66F1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 1D3623250D0F684500981E51 /* Neander4iPhoneAppDelegate.m */;
-		name = "Neander4iPhoneAppDelegate.m: 24";
-		rLen = 0;
-		rLoc = 536;
-		rType = 0;
-		vrLen = 578;
-		vrLoc = 0;
-	};
-	3F1422A615BBF633004C66F1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5FB8BB130ADBEC0037D55C /* Neander.h */;
-		name = "Neander.h: 26";
-		rLen = 0;
-		rLoc = 385;
-		rType = 0;
-		vrLen = 531;
-		vrLoc = 0;
+	3F14228815BBEFA5004C66F1 /* NeanderViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 468}}";
+			sepNavSelRange = "{804, 0}";
+			sepNavVisRange = "{225, 498}";
+		};
 	};
 	3F473D08130AEBFF004D7224 /* NeanderTests-Info.plist */ = {
 		uiCtxt = {
 			sepNavWindowFrame = "{{15, 370}, {679, 627}}";
 		};
-	};
-	3F473D89130AEE58004D7224 /* SimpleTests.h */ = {
-		isa = PBXFileReference;
-		fileEncoding = 4;
-		lastKnownFileType = sourcecode.c.h;
-		name = SimpleTests.h;
-		path = /Users/kidbomb/Documents/Neander4iPhone/Test_Suites/SimpleTests.h;
-		sourceTree = "<absolute>";
-	};
-	3F473E45130AF7CA004D7224 /* SimpleTests.m */ = {
-		isa = PBXFileReference;
-		fileEncoding = 4;
-		lastKnownFileType = sourcecode.c.objc;
-		name = SimpleTests.m;
-		path = /Users/kidbomb/Documents/Neander4iPhone/Test_Suites/SimpleTests.m;
-		sourceTree = "<absolute>";
 	};
 	3F473E80130AF82B004D7224 /* NeanderTests */ = {
 		activeExec = 0;
@@ -300,16 +239,6 @@
 			sepNavVisRange = "{3, 514}";
 			sepNavWindowFrame = "{{810, 87}, {1237, 891}}";
 		};
-	};
-	3F586CD015B8E12000165CF3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F473E45130AF7CA004D7224 /* SimpleTests.m */;
-		name = "SimpleTests.m: 18";
-		rLen = 1;
-		rLoc = 306;
-		rType = 0;
-		vrLen = 826;
-		vrLoc = 0;
 	};
 	3F586D6315B8ECBD00165CF3 /* PlistBookmark */ = {
 		isa = PlistBookmark;
@@ -332,9 +261,9 @@
 	};
 	3F586D9015B8EEDD00165CF3 /* MemReader.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {849, 650}}";
+			sepNavIntBoundsRect = "{{0, 0}, {866, 681}}";
 			sepNavSelRange = "{900, 0}";
-			sepNavVisRange = "{0, 424}";
+			sepNavVisRange = "{0, 1019}";
 			sepNavWindowFrame = "{{42, 188}, {925, 809}}";
 		};
 	};
@@ -348,29 +277,19 @@
 		vrLen = 1842;
 		vrLoc = 4128;
 	};
-	3F586F1A15B911BE00165CF3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F473D89130AEE58004D7224 /* SimpleTests.h */;
-		name = "SimpleTests.h: 118";
-		rLen = 0;
-		rLoc = 2636;
-		rType = 0;
-		vrLen = 553;
-		vrLoc = 2380;
-	};
 	3F5FB8BB130ADBEC0037D55C /* Neander.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {439, 507}}";
-			sepNavSelRange = "{385, 0}";
-			sepNavVisRange = "{0, 531}";
-			sepNavWindowFrame = "{{733, 258}, {400, 551}}";
+			sepNavIntBoundsRect = "{{0, 0}, {849, 546}}";
+			sepNavSelRange = "{544, 0}";
+			sepNavVisRange = "{325, 389}";
+			sepNavWindowFrame = "{{604, 294}, {610, 498}}";
 		};
 	};
 	3F5FB8BC130ADBEC0037D55C /* Neander.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {849, 1690}}";
-			sepNavSelRange = "{2166, 0}";
-			sepNavVisRange = "{2030, 281}";
+			sepNavIntBoundsRect = "{{0, 0}, {551, 1989}}";
+			sepNavSelRange = "{553, 26}";
+			sepNavVisRange = "{281, 447}";
 			sepNavWindowFrame = "{{43, 91}, {1237, 891}}";
 		};
 	};
@@ -382,6 +301,62 @@
 			sepNavWindowFrame = "{{59, 314}, {1221, 646}}";
 		};
 	};
+	3F89767615BCEF110029AA17 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* Neander4iPhoneAppDelegate.h */;
+		name = "Neander4iPhoneAppDelegate.h: 6";
+		rLen = 0;
+		rLoc = 107;
+		rType = 0;
+		vrLen = 498;
+		vrLoc = 0;
+	};
+	3F89767715BCEF110029AA17 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* Neander4iPhoneAppDelegate.m */;
+		name = "Neander4iPhoneAppDelegate.m: 22";
+		rLen = 0;
+		rLoc = 480;
+		rType = 0;
+		vrLen = 1479;
+		vrLoc = 272;
+	};
+	3F89768415BCEF780029AA17 /* NeanderView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {594, 425}}";
+			sepNavSelRange = "{212, 0}";
+			sepNavVisRange = "{0, 219}";
+			sepNavWindowFrame = "{{456, 207}, {653, 553}}";
+		};
+	};
+	3F89768515BCEF780029AA17 /* NeanderView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {594, 425}}";
+			sepNavSelRange = "{358, 0}";
+			sepNavVisRange = "{0, 371}";
+			sepNavWindowFrame = "{{456, 287}, {653, 553}}";
+		};
+	};
+	3F89768C15BCEF8C0029AA17 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5FB8BB130ADBEC0037D55C /* Neander.h */;
+		name = "Neander.h: 34";
+		rLen = 0;
+		rLoc = 544;
+		rType = 0;
+		vrLen = 582;
+		vrLoc = 132;
+	};
+	3F89768D15BCEF8C0029AA17 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F14228715BBEF9B004C66F1 /* NeanderViewController.h */;
+		name = "NeanderViewController.h: 10";
+		rLen = 0;
+		rLoc = 204;
+		rType = 0;
+		vrLen = 412;
+		vrLoc = 0;
+	};
 	3F906AC3130A344C00480147 /* Neander4iPhone */ = {
 		isa = PBXExecutable;
 		activeArgIndices = (
@@ -389,7 +364,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -427,6 +402,35 @@
 	3F906ACE130A346B00480147 /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
+	};
+	3FE5976D15BCF593000CCDCC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F89768415BCEF780029AA17 /* NeanderView.m */;
+		name = "NeanderView.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 198;
+		vrLoc = 0;
+	};
+	3FE5976E15BCF593000CCDCC /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Passing argument 1 of 'setPcValue:' makes pointer from integer without a cast";
+		fRef = 3F14228815BBEFA5004C66F1 /* NeanderViewController.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 30;
+		rType = 1;
+	};
+	3FE5978E15BCF8DE000CCDCC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F14228815BBEFA5004C66F1 /* NeanderViewController.m */;
+		name = "NeanderViewController.m: 7";
+		rLen = 0;
+		rLoc = 126;
+		rType = 0;
+		vrLen = 813;
+		vrLoc = 0;
 	};
 	8D1107310486CEB800E47090 /* Neander4iPhone-Info.plist */ = {
 		uiCtxt = {

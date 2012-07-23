@@ -30,6 +30,7 @@
 @property (nonatomic) unsigned char ac;
 -(id) init;
 -(id)initWithFile:(NSString*)path;
+-(void)setDelegate:(id)obj;
 -(void) reset;
 -(void) setMemory:(unsigned char)index:(unsigned char) value;
 -(unsigned char) getMemory:(unsigned char) index;

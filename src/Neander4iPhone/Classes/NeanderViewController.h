@@ -7,10 +7,15 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "Neander.h"
 
-@interface NeanderViewController : UIViewController {
-
+@interface NeanderViewController : UIViewController<NeanderDelegate> {
+	Neander *neander;
 }
+
+- (IBAction) openFileClicked:(id)sender;  
+- (IBAction) runButtonClicked:(id)sender;  
+- (void) stepped;
 
 @end
 
