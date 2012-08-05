@@ -41,7 +41,7 @@ void compiler_fatal_error(char * error);
 
 %token IF_T
 %token ASSIGNMENT
-%token DOUBLE_EQUAL
+%token NOT_EQUAL
 %token GOTOCMD
 %token<character> PLUSOP
 %token<character> OROP
@@ -61,8 +61,10 @@ PROGRAMA: {
 	pc = 0;
 }
 	DECLARACOES {
+		if(pc > 128) compiler_fatal_error("O programa passou de 127 bytes\n");
 		struct list_t * elem ;
-		fprintf(output, "ORG %d\n", pc);
+		fprintf(output, "HLT\n");
+		fprintf(output, "ORG 128\n");
 		for (i=0 ; i<SYMBOL_TABLE_SIZE ; i++) {
       			if (ts[i] != NULL) {
 				elem = ts[i] ;
@@ -154,9 +156,9 @@ DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
 		pc+=4;
 	}
 } 
-| IF_T IDF DOUBLE_EQUAL INTEIRO GOTOCMD IDF {
+| IF_T IDF NOT_EQUAL INTEIRO GOTOCMD IDF {
 	if($4 !=0){
-		compiler_fatal_error("Operação < com número diferente de zero não suportada!\n");
+		compiler_fatal_error("Operação != com número diferente de zero não suportada!\n");
 	} else{
 		fprintf(output, "LDA %s\n", $2.name);
 		fprintf(output, "JZ %s\n", $6.name);
@@ -165,11 +167,11 @@ DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
 } 
 ;
 DECLARACAO_LABEL: IDF ':' {
-	fprintf(output, "%s :\n", $1.name);
+	fprintf(output, "%s:\n", $1.name);
 }
 ;
 DECLARACAO_GOTO: GOTOCMD IDF {
-	fprintf(output, "JMP %s :\n", $2.name);
+	fprintf(output, "JMP %s\n", $2.name);
 }
 ;
 %%
@@ -210,7 +212,7 @@ int main(int argc, char* argv[]) {
    progname = argv[0];
    output = stdout;
    if (argc != 3 && argc != 4) {
-      printf("Erro. Uso do programa: \n\t%s -o <file.tac> [<input.txt>]\t onde <file.tac> eh o nome do arquivo de saida.\n\t\t e <input.txt> eh o arquivo de entrada (default: entrada padrao).\n", argv[0]);
+      printf("Erro. Uso do programa: \n\t%s -o <file.asm> [<input.tac>]\t onde <file.tac> eh o nome do arquivo de saida.\n\t\t e <input.txt> eh o arquivo de entrada (default: entrada padrao).\n", argv[0]);
       exit(-1);
   }
   else output = fopen(argv[2], "w");

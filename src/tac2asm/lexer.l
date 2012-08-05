@@ -37,7 +37,7 @@ if	{ return(IF_T);			}
 
 ":="	{ return(ASSIGNMENT);		}	
 "<"	{ return( '<');		}
-"=="	{ return( DOUBLE_EQUAL);		}
+"!="	{ return( NOT_EQUAL);		}
 ":"	{ return( ':' );		}
 "+"	{ 
 	yylval.character = '+';		

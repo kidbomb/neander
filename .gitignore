@@ -15,7 +15,6 @@
 lex.yy.c
 y.tab.c
 y.tab.h
-asm2mem/
 src/tac2asm/tac2asm
 src/sc2tac/sc2tac
 tac/

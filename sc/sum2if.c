@@ -1,13 +1,13 @@
-int a;
-int b;
-int c;
-bool d;
+byte a;
+byte b;
+byte c;
+byte d;
 void main() {
 	a = 1+2;
-	d = true;
+	d = 1;
 	if(a >= 0){
 		b = 5;
-		d = false;
+		d = 0;
 	}
 	c = 250;	
 }

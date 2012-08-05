@@ -192,12 +192,10 @@ INSTRUCAO:
 IF_BEGIN: IF_T '(' IDF DOUBLE_EQUAL BYTE ')' ABRE_CHAVES {
 		/*gera um label pra goto*/
 		if($5 == 0){
-		    char * iflabel_in = gera_tmp();
-		    char * iflabel_out = gera_tmp();
-		    strcpy($$.label, iflabel_out);
-		    fprintf(output, "if %s == 0 GOTO IF_%s\n", $3.name, iflabel_in);
-		    fprintf(output, "GOTO IF_%s\n",  iflabel_out);
-		    fprintf(output, "GOTO IF_%s\n", iflabel_in);
+		    char * iflabel = gera_tmp();
+		    strcpy($$.label, iflabel);
+		    fprintf(output, "if %s != 0 GOTO IF_%s\n", $3.name, iflabel);
+		    fprintf(output, "GOTO IF_%s\n",  iflabel);
 		} else {
 		    printf("Erro: compilador nao aceita esse tipo de comparacao\n");
 		    exit(-1);
@@ -355,7 +353,7 @@ int main(int argc, char* argv[]) {
    progname = argv[0];
    output = stdout;
    if (argc != 3 && argc != 4) {
-      printf("Erro. Uso do programa: \n\t%s -o <file.tac> [<input.txt>]\t onde <file.tac> eh o nome do arquivo de saida.\n\t\t e <input.txt> eh o arquivo de entrada (default: entrada padrao).\n", argv[0]);
+      printf("Erro. Uso do programa: \n\t%s -o <file.tac> [<input.c>]\t onde <file.tac> eh o nome do arquivo de saida.\n\t\t e <input.txt> eh o arquivo de entrada (default: entrada padrao).\n", argv[0]);
       exit(-1);
   }
   else output = fopen(argv[2], "w");
