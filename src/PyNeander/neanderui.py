@@ -2,6 +2,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, pango
 import time
+from neandermodel import *
 
 class NeanderUI:
 	DEF_PAD = 10
@@ -10,8 +11,9 @@ class NeanderUI:
         	self.window.set_title("Neander")
 		self.window.set_border_width(5)
 		self.window.connect("destroy", lambda x: gtk.main_quit())
-		self.window.set_size_request(500, 300)
+		self.window.set_size_request(500, 800)
 		self.window.set_resizable(False)
+		self.formatter = CommandFormatter()
 
 	def create_menu(self):
 
@@ -47,9 +49,9 @@ class NeanderUI:
 
 	def create_memory_view(self):
 		
-		liststore = gtk.ListStore(int, int, str)
+		self.liststore = gtk.ListStore(int, int, str)
 		sw = gtk.ScrolledWindow()		
-		self.sm = gtk.TreeModelSort(liststore)
+		self.sm = gtk.TreeModelSort(self.liststore)
 
 		tv = gtk.TreeView(self.sm)
 		sw.add(tv)
@@ -69,13 +71,20 @@ class NeanderUI:
 		self.vbox.pack_start(sw)
 
 	def aa_onclick(self, widget, string):
-		print "TEst"
+		print "Test"
 
 	def add_memory_row(self, addr, v):
-		self.sm.get_model().append([addr, v, "XXX"])
+		self.liststore.append([addr, v, self.formatter.format(0)])
 
 	def set_memory_row(self,addr, v):
-		self.sm.get_model().set(addr, 1, v, 2, "XXX")
+		self.liststore.set(self.liststore.get_iter(addr), 1, v)
+		self.liststore.set(self.liststore.get_iter(addr), 2, self.formatter.format(v))
+
+	def set_ac(self, ac):
+		self.ac_label.set_text(str(ac))
+
+	def set_pc(self, pc):
+		self.pc_label.set_text(str(pc))
 
 	def show_file_dialog(self):
 		dialog = gtk.FileChooserDialog("Open..",None,gtk.FILE_CHOOSER_ACTION_OPEN,(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,  gtk.RESPONSE_OK))
@@ -117,14 +126,14 @@ class NeanderUI:
 
 		frame = gtk.Frame()
 		frame.set_label("AC")
-		label = gtk.Label("AC_VALUE")
-		frame.add(label)
+		self.ac_label = gtk.Label("0")
+		frame.add(self.ac_label)
 		hboxtl.pack_start(frame, False, False, 0)
 
 		frame = gtk.Frame()
 		frame.set_label("PC")
-		label = gtk.Label("PC_VALUE")
-		frame.add(label)
+		self.pc_label = gtk.Label("0")
+		frame.add(self.pc_label)
 		hboxtl.pack_start(frame, False, False, 0)
 		
 		vboxl.pack_start(hboxtl, False, False, 0)

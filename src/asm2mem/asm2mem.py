@@ -1,8 +1,14 @@
+#!/usr/bin/env python
 import sys
 import string
 import struct
 
+if len(sys.argv) <= 2:
+	print "Usage: asm2mem file.asm file.mem"
+	exit(1)
+
 asm_file = open(sys.argv[1])
+
 pc=0
 labels = {}
 
@@ -46,7 +52,7 @@ for line in asm_file:
 pc=0
 asm_file.seek(0)
 
-mem_file = open('a.mem', 'w')
+mem_file = open(sys.argv[2], 'w')
 
 mem_file.write(struct.pack('bccc', 3, 'N', 'D', 'R'))
 

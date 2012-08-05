@@ -12,6 +12,33 @@ class Command:
 	JZ = 160
 	HLT = 240
 
+class CommandFormatter:
+	def format(self,command):
+		if command == Command.NOP:
+			return "NOP"
+		elif command == Command.STA:
+			return "STA"
+		elif command == Command.LDA:
+			return "LDA"
+		elif command == Command.STA:
+			return "STA"
+		elif command == Command.ADD:
+			return "ADD"
+		elif command == Command.OR:
+			return "OR"
+		elif command == Command.AND:
+			return "AND"
+		elif command == Command.NOT:
+			return "NOT"
+		elif command == Command.JMP:
+			return "JMP"
+		elif command == Command.JN:
+			return "JN"
+		elif command == Command.JZ:
+			return "JZ"
+		elif command == Command.HLT:
+			return "HLT"
+
 class Neander(object):
 	def __init__(self):
 		self.memory = [0] * 256
@@ -84,6 +111,8 @@ class Neander(object):
 			if self.z:
 				self.pc = address
 
+		self.on_stepped();
+
 		return instruction
 
 	def run(self):
@@ -98,6 +127,9 @@ class Neander(object):
 		for i in range(256):
 			self.memory[i] = reader.read()
 		reader.close()
+
+	def set_stepped_function(self, f):
+		self.on_stepped = f
 
 class NeanderMemReader:
 	def __init__(self, filename):
