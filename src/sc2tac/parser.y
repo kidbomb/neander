@@ -69,7 +69,7 @@ void moreline();
 %token ELSE_T
 %token IF_T
 %token WHILE_T
-%token DOUBLE_EQUAL
+%token NOT_EQUAL
 %token DE
 %token GREATER_OR_EQUAL
 %token RETORNA
@@ -79,6 +79,8 @@ void moreline();
 %type <expressao> EXPRESSAO
 %type <l_t> L
 %type <jump> IF_BEGIN
+%type <jump> IF_ELSE_BEGIN
+%type <jump> ELSE_BEGIN
 %type <jump> IF_END
 
 %%
@@ -183,19 +185,27 @@ INSTRUCAO:
 		}
 	}
 	| IF_BEGIN INSTRUCOES IF_END {
-		fprintf(output, "IF_%s :\n", $1.label);
+		fprintf(output, "IF_END_%s:\n", $1.label);
 	}
-	| WHILE_T '(' IDF DOUBLE_EQUAL BYTE ')' ESCOPO {
+	| IF_ELSE_BEGIN INSTRUCOES ELSE_END {
+		fprintf(output, "ELSE_END_%s:\n", $1.label);
+	}
+	| WHILE_T '(' IDF NOT_EQUAL BYTE ')' ESCOPO {
 	}
 	;
 
-IF_BEGIN: IF_T '(' IDF DOUBLE_EQUAL BYTE ')' ABRE_CHAVES {
+IF_ELSE_BEGIN: IF_BEGIN INSTRUCOES IF_END ELSE_BEGIN {
+		strcpy($$.label, $4.label);
+		fprintf(output, "IF_END_%s:\n", $1.label);
+	}
+	;
+
+IF_BEGIN: IF_T '(' IDF NOT_EQUAL BYTE ')' ABRE_CHAVES {
 		/*gera um label pra goto*/
 		if($5 == 0){
 		    char * iflabel = gera_tmp();
 		    strcpy($$.label, iflabel);
-		    fprintf(output, "if %s != 0 GOTO IF_%s\n", $3.name, iflabel);
-		    fprintf(output, "GOTO IF_%s\n",  iflabel);
+		    fprintf(output, "if %s == 0 GOTO IF_END_%s\n", $3.name, iflabel);
 		} else {
 		    printf("Erro: compilador nao aceita esse tipo de comparacao\n");
 		    exit(-1);
@@ -206,7 +216,7 @@ IF_BEGIN: IF_T '(' IDF DOUBLE_EQUAL BYTE ')' ABRE_CHAVES {
 		if($5 == 0){
 		    char * iflabel = gera_tmp();				
 		    strcpy($$.label, iflabel);
-		    fprintf(output, "if %s < 0 GOTO IF_%s\n", $3.name, iflabel);
+		    fprintf(output, "if %s < 0 GOTO IF_END_%s\n", $3.name, iflabel);
 		} else {
 		    printf("Erro: compilador nao aceita esse tipo de comparacao\n");
 		    exit(-1);
@@ -215,6 +225,17 @@ IF_BEGIN: IF_T '(' IDF DOUBLE_EQUAL BYTE ')' ABRE_CHAVES {
     }
 	;
 IF_END: FECHA_CHAVES {
+	}
+	;
+
+ELSE_BEGIN: ELSE_T ABRE_CHAVES {
+	char * elselabel = gera_tmp();
+	strcpy($$.label, elselabel);
+	fprintf(output, "GOTO ELSE_END_%s\n", elselabel);
+	}
+	;
+
+ELSE_END: FECHA_CHAVES {
 	}
 	;
 EXPRESSAO: EXPRESSAO '+' EXPRESSAO {
@@ -250,9 +271,9 @@ EXPRESSAO: EXPRESSAO '+' EXPRESSAO {
 L:  IDF {
            entry_t* entrada = scope_lookup(scope, $1.name) ;
            if (!entrada) {
-		     	printf("O simbolo %s nao foi declarado neste escopo!\n", $1.name);
+		     	printf("O simbolo '%s' nao foi declarado neste escopo!\n", $1.name);
 		     exit(-1);
-		  }
+		}
       	   $$.local = $1.name ;
 	   $$.tipo = entrada->type;
 	 ; }
@@ -275,6 +296,7 @@ int lineno;
 void table_insert(char* nome, int tipo, int size, void* extra) {
      entry_t* entrada = (entry_t*)malloc(sizeof(entry_t));
      entrada->name = (char*)malloc(sizeof(char)*strlen(nome));
+     memset(entrada->name, 0, sizeof(char)*strlen(nome));
      strcpy(entrada->name, nome);
      entrada->type = tipo;
      entrada->size = size;

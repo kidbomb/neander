@@ -38,7 +38,7 @@ while	{ return(WHILE_T);		}
 			return( BYTE );
 }
 
-"=="	{ return(DOUBLE_EQUAL);		}	
+"!="	{ return(NOT_EQUAL);		}	
 ">="	{ return(GREATER_OR_EQUAL);	}
 "*"     { return( '*' ) ;		}
 ";"     { return( ';' ) ;		}

@@ -13,13 +13,14 @@
 #define ARQ_AHMES	3
 
 symbol_t ts;
+symbol_t ts_temp;	//para variaveis temporarias
 int i;                      /* Variavel de iteracao*/
 FILE* output;            /* O arquivo de saída gerado pelo compilador */
 int chosen_architecture;
 int pc;
 
 
-void table_insert(char* nome, int value) ;
+void table_insert(symbol_t *t, char* nome, int value) ;
 void compiler_fatal_error(char * error);
 
 %}
@@ -41,7 +42,7 @@ void compiler_fatal_error(char * error);
 
 %token IF_T
 %token ASSIGNMENT
-%token NOT_EQUAL
+%token DOUBLE_EQUAL
 %token GOTOCMD
 %token<character> PLUSOP
 %token<character> OROP
@@ -49,6 +50,7 @@ void compiler_fatal_error(char * error);
 %token<inteiro>	INTEIRO
 %token<string> 	IDF
 %type<string> 	VARIABLE
+%type<string> 	VALUE_T
 %type<character> OP
 
 %%
@@ -58,6 +60,7 @@ void compiler_fatal_error(char * error);
 /* O programa é definido pro declarações, tanto de tipos como de procedimentos */
 PROGRAMA: {
 	table_init(&ts);
+	table_init(&ts_temp);
 	pc = 0;
 }
 	DECLARACOES {
@@ -65,9 +68,21 @@ PROGRAMA: {
 		struct list_t * elem ;
 		fprintf(output, "HLT\n");
 		fprintf(output, "ORG 128\n");
+
 		for (i=0 ; i<SYMBOL_TABLE_SIZE ; i++) {
       			if (ts[i] != NULL) {
 				elem = ts[i] ;
+				while (elem != NULL) {
+           				fprintf(output, "%s:\tDB %d\n",elem->symb->name,  elem->symb->value);
+
+	   				elem = elem->next;
+				}
+      			}
+   		}
+
+		for (i=0 ; i<SYMBOL_TABLE_SIZE ; i++) {
+      			if (ts_temp[i] != NULL) {
+				elem = ts_temp[i] ;
 				while (elem != NULL) {
            				fprintf(output, "%s:\tDB %d\n",elem->symb->name,  elem->symb->value);
 
@@ -118,36 +133,52 @@ DECLARACAO_ASSIGNMENT: VARIABLE ASSIGNMENT VARIABLE OP VARIABLE {
 	fprintf(output, "STA %s\n", $1.name);	
 	pc+=5;
 }
-| VARIABLE ASSIGNMENT VARIABLE {
+| VARIABLE ASSIGNMENT VALUE_T {
 	fprintf(output, "LDA %s\n", $3.name);
-	fprintf(output, "STA %s\n", $1.name);
-	pc+=4;
-}
-| VARIABLE ASSIGNMENT INTEIRO {
-	/**/
-	char constname [15];
-	sprintf(constname, "CONST_%04d", $3);
-	entry_t* entrada = lookup(ts, constname) ;
-        if (!entrada) {
-		table_insert(constname, $3);
-	}
-	fprintf(output, "LDA %s\n", constname);
 	fprintf(output, "STA %s\n", $1.name);
 	pc+=4;
 }
 ;
 
+
+
 OP : PLUSOP |  OROP | ANDOP ;
 
-VARIABLE: IDF {
-	/*inserir na tabela se não estiver la*/
-	entry_t* entrada = lookup(ts, $1.name) ;
-        if (!entrada) {
-		table_insert($1.name, 0);
+VALUE_T: 
+	VARIABLE {
+		$$.name = $1.name;
 	}
+	| INTEIRO {
+		
+		char * constname  = malloc(sizeof(char)*15);
+		sprintf(constname, "CONST_%04d", $1);
+		entry_t* entrada = lookup(ts_temp, constname) ;
+		if (!entrada) {
+			table_insert(&ts_temp, constname, $1);
+		}
+		$$.name = constname;		
+	}
+	;
+
+
+VARIABLE: IDF {
+	symbol_t *t;
+	/*TODO: not the best solution*/
+	if(strstr($1.name, "TMP")){
+		t = &ts_temp;
+	} else {
+		t = &ts;
+	}
+	
+	/*inserir na tabela se não estiver la*/
+	entry_t* entrada = lookup(*t, $1.name) ;
+        if (!entrada) {
+		table_insert(t,$1.name, 0);
+	}
+	$$.name = $1.name;
 };
 
-DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
+DECLARACAO_IF : IF_T VARIABLE '<' INTEIRO GOTOCMD IDF {
 	if($4 !=0){
 		compiler_fatal_error("Operação < com número diferente de zero não suportada!\n");
 	} else{
@@ -156,9 +187,9 @@ DECLARACAO_IF : IF_T IDF '<' INTEIRO GOTOCMD IDF {
 		pc+=4;
 	}
 } 
-| IF_T IDF NOT_EQUAL INTEIRO GOTOCMD IDF {
+| IF_T IDF DOUBLE_EQUAL INTEIRO GOTOCMD IDF {
 	if($4 !=0){
-		compiler_fatal_error("Operação != com número diferente de zero não suportada!\n");
+		compiler_fatal_error("Operação == com número diferente de zero não suportada!\n");
 	} else{
 		fprintf(output, "LDA %s\n", $2.name);
 		fprintf(output, "JZ %s\n", $6.name);
@@ -187,12 +218,12 @@ char* progname;
 /*							*/
 /* insere uma variável na tabela			*/
 /********************************************************/
-void table_insert(char* nome, int value) {
+void table_insert(symbol_t *t,char* nome, int value) {
      entry_t* entrada = (entry_t*)malloc(sizeof(entry_t));
      entrada->name = (char*)malloc(sizeof(char)*strlen(nome));
      entrada->value = value;
      strcpy(entrada->name, nome);
-     insert(&ts, entrada );
+     insert(t, entrada );
      
 }
 
