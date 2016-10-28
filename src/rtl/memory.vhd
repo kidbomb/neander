@@ -44,7 +44,9 @@ begin
 		end if;
 
 		--mem access
-		if clock_in'event and clock_in = '1' then
+		if reset_in = '1' then
+			data_out <= (others => '0');
+		elsif clock_in'event and clock_in = '1' then
 			if write_enable = '1' then
 				ram(conv_integer(address_in)) <= data_in;
 			else
